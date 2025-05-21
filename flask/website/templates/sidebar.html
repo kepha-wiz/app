@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    </head>
+    <body>
+        
+        <div id="sidebar-wrapper">
+    <div class="sidebar" id="sidebar">
+        <a href="{{ url_for('views.home') }}">
+            <img src="{{ url_for('static', filename='blacklogo.svg') }}" alt="logo">
+        </a>
+        <ul>
+            <a href="{{ url_for('views.home') }}"><li>Dashboard</li></a>
+            <a href="{{ url_for('views.account_details') }}"><li>My Profile</li></a>
+            <a href="{{ url_for('views.edit_details') }}"><li>Settings</li></a>
+            <a href="{{ url_for('auth.logout') }}" id="logout"><li>Logout</li></a>
+        </ul>
+    </div>
+    <button id="sidebar-toggle" aria-label="Toggle sidebar">
+        <span id="arrow">&#9776;</span>
+    </button>
+</div>
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const arrow = document.getElementById('arrow');
+
+    // Collapse sidebar by default on small screens
+    function checkSidebarCollapse() {
+        if (window.innerWidth <= 768) {
+            sidebar.classList.add('collapsed');
+            arrow.innerHTML = '&#9654;'; // right arrow
+        } else {
+            sidebar.classList.remove('collapsed');
+            arrow.innerHTML = '&#9776;'; // hamburger
+        }
+    }
+    checkSidebarCollapse();
+    window.addEventListener('resize', checkSidebarCollapse);
+
+    toggleBtn.onclick = function() {
+        sidebar.classList.toggle('collapsed');
+        if (sidebar.classList.contains('collapsed')) {
+            arrow.innerHTML = '&#9654;'; // right arrow
+        } else {
+            arrow.innerHTML = '&#9776;'; // hamburger
+        }
+    }
+</script>
+    </body>
+</html>
